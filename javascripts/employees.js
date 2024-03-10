@@ -5,4 +5,7 @@ class Employee extends Person {
     this.NhanVienNgayLam = NhanVienNgayLam;
     this.NhanVienLuong = NhanVienLuong;
   }
+  tinhLuong = function(){
+    return this.NhanVienLuong * this.NhanVienNgayLam
+  }
 }
