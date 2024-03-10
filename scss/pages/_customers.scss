@@ -1,0 +1,44 @@
+.research {
+  background-color: #f5f7fa;
+  height: calc(100vh - 13vh);
+  &-inner {
+    padding: 20px;
+  }
+  &-heading {
+    font-size: 24px;
+    font-weight: 600;
+  }
+  &-table {
+    margin-top: 20px;
+    background-color: #6176fe;
+    width: 100%;
+  }
+  &-thead {
+    padding: 20px;
+  }
+  &-tr {
+  }
+  &-th {
+    color: #fff;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 500;
+  }
+}
+.btn-primary {
+  margin-top: 20px;
+  background-color: #6176fe;
+  font-weight: 500;
+}
+.form-control {
+  margin-top: 10px;
+}
+#btnCapNhat,
+#btnThemHocVien {
+  background-color: #6176fe !important;
+  color: #fff;
+}
+#tbBodyHocVien {
+  background-color: #f5f7fa !important;
+  color: #6176fe;
+}
