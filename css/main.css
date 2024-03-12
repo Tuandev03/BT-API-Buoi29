@@ -283,6 +283,7 @@ select {
   padding: 20px;
 }
 .research-th {
+  text-align: center !important;
   color: #fff;
   padding: 10px;
   font-size: 16px;
@@ -299,15 +300,30 @@ select {
   margin-top: 10px;
 }
 
-#btnCapNhat,
-#btnThemHocVien {
-  background-color: #6176fe !important;
+#tbodyNhanVien {
+  text-align: center !important;
+}
+
+#btnCapNhatNhanVien,
+#btnThemNhanVien {
+  background-color: #6176fe;
   color: #fff;
 }
 
-#tbBodyHocVien {
-  background-color: #f5f7fa !important;
-  color: #6176fe;
+.invalid-feedback {
+  display: block;
+}
+
+#loai {
+  width: 200px;
+  display: inline-block;
+  height: calc(1.5em + 0.75rem + 2px);
+  padding: 0.375rem 1.75rem 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  border-radius: 4px;
 }
 
 .research {

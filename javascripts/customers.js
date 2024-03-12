@@ -48,16 +48,16 @@ const renderCustomers = (arrFiled = person.listPersons) => {
       KhachHangDanhGia,
     } = newCustomer;
     content += `
-    <tr>
+    <tr class="mb-4 pb-4 tr">
 
-    <td>${ID}</td>
-    <td>${HoTen}</td>
-    <td>${DiaChi}</td>
-    <td>${Email}</td>
-    <td>${KhachHangCongTy}</td>
-    <td>${KhachHangTriGia}</td>
-    <td>${KhachHangDanhGia}</td>
-    <td>
+    <td class="td">${ID}</td>
+    <td class="td">${HoTen}</td>
+    <td class="td">${DiaChi}</td>
+    <td class="td">${Email}</td>
+    <td class="td">${KhachHangCongTy}</td>
+    <td class="td">${KhachHangTriGia}</td>
+    <td class="td">${KhachHangDanhGia}</td>
+    <td class="td">
     <button  id="btnDelete"  data-id="${ID}" class="btn btn-danger" onclick="deletePerson('${ID}')">Xóa</button>
 
     <button  id="btnSua"  data-id="${ID}" class="btn btn-warning" onclick="getDetailPerson('${ID}')">Sửa</button>
@@ -125,6 +125,8 @@ let updatePerson = () => {
     document.getElementById("formGroup").reset();
     renderCustomers();
     saveDataCustomerLocal();
+    $("#exampleModal").modal("hide");
+
     document.getElementById("ID").readOnly = false;
   }
 };
