@@ -178,34 +178,33 @@ let getDetailPerson = (ID) => {
 // Lắng nghe sự kiện click trên nút "Sửa"
 
 // Update student
-let updatePerson = () => {
-  let arrFiled = document.querySelectorAll(".form-control");
-  let student = new Student(); // Tạo một đối tượng Student mới để lưu dữ liệu cập nhật
-  arrFiled.forEach((item) => {
-    let { id, value } = item;
-    student[id] = value; // Gán giá trị từ form vào đối tượng student
-  });
-  let index = person.listPersons.findIndex((item) => {
-    return item.ID === student.ID;
-  });
-  if (index !== -1) {
-    person.listPersons[index] = student; // Ghi đè dữ liệu của phần tử tại chỉ mục đã cho bằng đối tượng student mới
-    document.getElementById("formGroup").reset();
-    renderStudent();
-    saveDataStudentLocal();
-    document.getElementById("ID").readOnly = false;
-    // document.getElementById("btnAdd").style.display = "none";
-    $("#exampleModal").modal("hide");
-  }
-  // let show = document.querySelector("#btnSua");
-  // show.addEventListener("click", () => {
-  //   document.getElementById("btnCapNhat").style.display = "block";
-  // });
-};
-document.getElementById("btnCapNhat").onclick = updatePerson;
+// let updatePerson = () => {
+//   let arrFiled = document.querySelectorAll(".form-control");
+//   let student = new Student(); // Tạo một đối tượng Student mới để lưu dữ liệu cập nhật
+//   arrFiled.forEach((item) => {
+//     let { id, value } = item;
+//     student[id] = value; // Gán giá trị từ form vào đối tượng student
+//   });
+//   let index = person.listPersons.findIndex((item) => {
+//     return item.ID === student.ID;
+//   });
+//   if (index !== -1) {
+//     person.listPersons[index] = student; // Ghi đè dữ liệu của phần tử tại chỉ mục đã cho bằng đối tượng student mới
+//     document.getElementById("formGroup").reset();
+//     renderStudent();
+//     saveDataStudentLocal();
+//     document.getElementById("ID").readOnly = false;
+//     // document.getElementById("btnAdd").style.display = "none";
+//     $("#exampleModal").modal("hide");
+//   }
+//   // let show = document.querySelector("#btnSua");
+//   // show.addEventListener("click", () => {
+//   //   document.getElementById("btnCapNhat").style.display = "block";
+//   // });
+// };
+// document.getElementById("btnCapNhat").onclick = updatePerson;
 
 const searchInput = document.getElementById("searchHocVien");
-
 // Thêm sự kiện onchange cho input
 searchInput.addEventListener("input", function () {
   // Lấy giá trị nhập vào từ input
@@ -213,7 +212,7 @@ searchInput.addEventListener("input", function () {
 
   // Gọi phương thức searchPerson và hiển thị kết quả
   const searchResults = person.searchPerson(keyword);
-  renderStudent(searchResults)
+  renderStudent(searchResults);
 });
 
 window.deletePerson = (ID) => {
@@ -223,3 +222,61 @@ window.deletePerson = (ID) => {
 window.getDetailPerson = (ID) => {
   getDetailPerson(ID);
 };
+
+let updatePerson = () => {
+  // Ẩn nút cập nhật khi bắt đầu xử lý
+
+  let arrFiled = document.querySelectorAll(".form-control");
+  let student = new Student();
+  let isHoTenValid = true; // Biến để kiểm tra trường HoTen
+  let isEmailValid = true; // Biến để kiểm tra trường Email
+  let isNumberValid = true; // Biến để kiểm tra trường NhanVienNgayLam và NhanVienLuong
+  arrFiled.forEach((item) => {
+    let { id, value } = item;
+    // Kiểm tra từng trường và gán giá trị cho student
+    switch (id) {
+      case "ID":
+        student[id] = value;
+        break;
+      case "HoTen":
+        if (!checkEmptyValue(value, id) || !checkNameFormat(value, id)) {
+          isHoTenValid = false;
+        }
+        student[id] = value;
+        break;
+      case "DiaChi":
+        student[id] = value;
+        break;
+      case "Email":
+        if (!checkEmptyValue(value, id) || !checkEmailFormat(value, id)) {
+          isEmailValid = false;
+        }
+        student[id] = value;
+        break;
+      case "HocVienToan":
+      case "HocVienHoa":
+      case "HocVienLy":
+        if (!checkEmptyValue(value, id) || !checkNumberFormat(value, id)) {
+          isNumberValid = false;
+        }
+        student[id] = value;
+        break;
+    }
+  });
+
+  if (isHoTenValid && isEmailValid && isNumberValid) {
+    // Chỉ gọi updatePerson nếu tất cả các trường hợp lệ
+    let index = person.listPersons.findIndex((item) => {
+      return item.ID === student.ID;
+    });
+    if (index !== -1) {
+      person.listPersons[index] = student;
+      document.getElementById("formGroup").reset();
+      renderStudent();
+      saveDataStudentLocal();
+      $("#exampleModal").modal("hide");
+      document.getElementById("ID").readOnly = false;
+    }
+  }
+};
+document.getElementById("btnCapNhat").onclick = updatePerson;
