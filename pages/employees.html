@@ -51,7 +51,7 @@
         <div class="header-nav">
           <img class="header-logo" src="../imgs/logo.png" alt="" />
           <ul class="header-list">
-            <li class="header-list-item header-active">
+            <li class="header-item">
               <a class="header-item-link" href="../index.html">
                 <i class="header-icon fa-brands fa-codepen"></i>
                 Dashboard
@@ -64,7 +64,7 @@
                 Quản lý Học Viên
               </a>
             </li>
-            <li class="header-item">
+            <li class="header-item header-active">
               <i class="header-icon fa-solid fa-people-roof"></i>
               <a class="header-item-link" href="../pages/employees.html"
                 >Quản lý Nhân Viên</a
@@ -145,8 +145,7 @@
                 </button>
                 <div>
                   <select class="custom-select d-block" id="loai" required>
-                    <option selected>Chọn Loại</option>
-                    <option value="Tất cả">Tất cả</option>
+                    <option selected="">Sắp xếp tên</option>
                     <option value="A->Z">A->Z</option>
                     <option value="Z->A">Z->A</option>
                   </select>
@@ -268,7 +267,7 @@
                     <div class="modal-footer">
                       <button
                         type="button"
-                        class="btn btn-warning"
+                        class="btn btn-warning btnAdddd"
                         id="btnCapNhatNhanVien"
                       >
                         Cập Nhật

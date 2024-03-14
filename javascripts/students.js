@@ -5,8 +5,10 @@ import {
   checkEmailFormat,
   checkNumberFormat,
   checkEmptyValue,
+  checkNumberFloat,
   // removeVietnameseTones,
 } from "./validation.js";
+
 export default class Student extends Person {
   constructor(ID, HoTen, DiaChi, Email, HocVienToan, HocVienHoa, HocVienLy) {
     super(ID, HoTen, DiaChi, Email);
@@ -62,7 +64,7 @@ function validateAndSubmit() {
       case "HocVienToan":
       case "HocVienHoa":
       case "HocVienLy":
-        if (!checkEmptyValue(value, id) || !checkNumberFormat(value, id)) {
+        if (!checkEmptyValue(value, id) || !checkNumberFloat(value, id)) {
           isValid = false;
         }
         break;
@@ -175,34 +177,6 @@ let getDetailPerson = (ID) => {
     document.querySelector(".btnAdd").style.display = "none";
   }
 };
-// Lắng nghe sự kiện click trên nút "Sửa"
-
-// Update student
-// let updatePerson = () => {
-//   let arrFiled = document.querySelectorAll(".form-control");
-//   let student = new Student(); // Tạo một đối tượng Student mới để lưu dữ liệu cập nhật
-//   arrFiled.forEach((item) => {
-//     let { id, value } = item;
-//     student[id] = value; // Gán giá trị từ form vào đối tượng student
-//   });
-//   let index = person.listPersons.findIndex((item) => {
-//     return item.ID === student.ID;
-//   });
-//   if (index !== -1) {
-//     person.listPersons[index] = student; // Ghi đè dữ liệu của phần tử tại chỉ mục đã cho bằng đối tượng student mới
-//     document.getElementById("formGroup").reset();
-//     renderStudent();
-//     saveDataStudentLocal();
-//     document.getElementById("ID").readOnly = false;
-//     // document.getElementById("btnAdd").style.display = "none";
-//     $("#exampleModal").modal("hide");
-//   }
-//   // let show = document.querySelector("#btnSua");
-//   // show.addEventListener("click", () => {
-//   //   document.getElementById("btnCapNhat").style.display = "block";
-//   // });
-// };
-// document.getElementById("btnCapNhat").onclick = updatePerson;
 
 const searchInput = document.getElementById("searchHocVien");
 // Thêm sự kiện onchange cho input
@@ -256,7 +230,7 @@ let updatePerson = () => {
       case "HocVienToan":
       case "HocVienHoa":
       case "HocVienLy":
-        if (!checkEmptyValue(value, id) || !checkNumberFormat(value, id)) {
+        if (!checkEmptyValue(value, id) || !checkNumberFloat(value, id)) {
           isNumberValid = false;
         }
         student[id] = value;
@@ -280,3 +254,44 @@ let updatePerson = () => {
   }
 };
 document.getElementById("btnCapNhat").onclick = updatePerson;
+
+// Đợi cho DOM được tải xong trước khi thêm sự kiện
+document.addEventListener("DOMContentLoaded", function () {
+  // Lấy tham chiếu đến phần tử select
+  const selectElement = document.querySelector(".custom-select");
+
+  // Thêm sự kiện "change" cho phần tử select
+  selectElement.addEventListener("change", handleSortOptionChange);
+});
+
+// Xử lý sự kiện khi người dùng thay đổi tùy chọn sắp xếp
+function handleSortOptionChange(event) {
+  // Lấy giá trị của tùy chọn được chọn
+  const selectedOption = event.target.value;
+
+  // Sắp xếp và hiển thị lại danh sách nhân viên
+  sortAndRenderEmployees(selectedOption);
+}
+
+// Sắp xếp và hiển thị lại danh sách nhân viên dựa trên tùy chọn
+function sortAndRenderEmployees(option) {
+  // Lấy danh sách nhân viên từ person.listPersons
+  let sortedEmployees = [...person.listPersons];
+
+  // Sắp xếp theo tùy chọn
+  if (option === "A->Z") {
+    sortedEmployees.sort((a, b) => a.HoTen.localeCompare(b.HoTen));
+  } else if (option === "Z->A") {
+    sortedEmployees.sort((a, b) => b.HoTen.localeCompare(a.HoTen));
+  }
+
+  // Hiển thị danh sách nhân viên sau khi đã sắp xếp
+  renderStudent(sortedEmployees);
+}
+
+// Xử lý hành động khi người dùng nhấn vào sửa nhưng bỏ ý định sửa khi click ra window, nhưng hàm add ch đc reset value trong input, dưới đây là cách xử lý
+document.querySelector(".btnHide").addEventListener("click", () => {
+  document.getElementById("ID").readOnly = false;
+  document.querySelector(".btnAdddd").style.display = "block";
+  document.getElementById("formGroup").reset();
+});

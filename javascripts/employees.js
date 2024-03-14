@@ -208,6 +208,9 @@ let updatePerson = () => {
         employee[id] = value;
         break;
       case "DiaChi":
+        if (!checkEmptyValue(value, id)) {
+          isEmailValid = false;
+        }
         employee[id] = value;
         break;
       case "Email":
@@ -259,7 +262,39 @@ searchInput.addEventListener("input", function () {
   renderEmployees(searchResults);
 });
 
-// Hàm renderEmployees cần phải nhận tham số là kết quả tìm kiếm để hiển thị kết quả mới
+// Đợi cho DOM được tải xong trước khi thêm sự kiện
+document.addEventListener("DOMContentLoaded", function () {
+  // Lấy tham chiếu đến phần tử select
+  const selectElement = document.querySelector(".custom-select");
+
+  // Thêm sự kiện "change" cho phần tử select
+  selectElement.addEventListener("change", handleSortOptionChange);
+});
+
+// Xử lý sự kiện khi người dùng thay đổi tùy chọn sắp xếp
+function handleSortOptionChange(event) {
+  // Lấy giá trị của tùy chọn được chọn
+  const selectedOption = event.target.value;
+
+  // Sắp xếp và hiển thị lại danh sách nhân viên
+  sortAndRenderEmployees(selectedOption);
+}
+
+// Sắp xếp và hiển thị lại danh sách nhân viên dựa trên tùy chọn
+function sortAndRenderEmployees(option) {
+  // Lấy danh sách nhân viên từ person.listPersons
+  let sortedEmployees = [...person.listPersons];
+
+  // Sắp xếp theo tùy chọn
+  if (option === "A->Z") {
+    sortedEmployees.sort((a, b) => a.HoTen.localeCompare(b.HoTen));
+  } else if (option === "Z->A") {
+    sortedEmployees.sort((a, b) => b.HoTen.localeCompare(a.HoTen));
+  }
+
+  // Hiển thị danh sách nhân viên sau khi đã sắp xếp
+  renderEmployees(sortedEmployees);
+}
 
 window.deletePerson = (ID) => {
   deletePerson(ID);
@@ -267,3 +302,9 @@ window.deletePerson = (ID) => {
 window.getDetailPerson = (ID) => {
   getDetailPerson(ID);
 };
+
+document.querySelector(".btnHide").addEventListener("click", () => {
+  document.getElementById("ID").readOnly = false;
+  document.querySelector(".btnAdddd").style.display = "none";
+  document.getElementById("formGroup").reset();
+});

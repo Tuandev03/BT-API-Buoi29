@@ -114,6 +114,7 @@ select {
   color: #6176fe;
 }
 .header-item-link {
+  width: 85%;
   display: inline-block;
   padding: 10px 0;
   font-size: 18px;
@@ -192,6 +193,13 @@ select {
   box-shadow: 1px -1px 25px 4px rgba(0, 0, 0, 0.15);
   -webkit-box-shadow: 1px -1px 25px 4px rgba(0, 0, 0, 0.15);
   -moz-box-shadow: 1px -1px 25px 4px rgba(0, 0, 0, 0.15);
+  background-color: #6176fe;
+}
+.content-item:hover .content-icon {
+  color: #fff;
+}
+.content-item:hover .content-link {
+  color: #fff;
 }
 .content-icon {
   color: #6176fe;
@@ -371,4 +379,10 @@ select {
 #tbBodyHocVien {
   background-color: #f5f7fa !important;
   color: #6176fe;
+}
+
+#btnCapNhatKhachHang,
+#btnThemKhachHang {
+  background-color: #6176fe;
+  color: #fff;
 }/*# sourceMappingURL=main.css.map */

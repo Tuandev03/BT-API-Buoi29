@@ -95,6 +95,20 @@ export function checkNumberFormat(value, id) {
     return true;
   }
 }
+export function checkNumberFloat(value, id) {
+  const numberRegex = /^[+-]?\d+(\.\d+)?$/;
+  if (!numberRegex.test(value)) {
+    document.getElementById(`invalid${id}`).innerHTML = "Vui lòng chỉ nhập số";
+    document.getElementById(`invalid${id}`).classList.add("invalid-feedback");
+    return false;
+  } else {
+    document.getElementById(`invalid${id}`).innerHTML = "";
+    document
+      .getElementById(`invalid${id}`)
+      .classList.remove("invalid-feedback");
+    return true;
+  }
+}
 // Bỏ dấu trong chữ cái
 export  function removeVietnameseTones(str) {
   str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
